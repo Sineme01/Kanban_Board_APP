@@ -1,7 +1,3 @@
-
-
-
-
 import { useEffect, useState } from "react";
 import { Quick_API } from "../utils/config";
 import Status from "./status";
