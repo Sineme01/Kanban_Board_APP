@@ -3,9 +3,6 @@ import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 // importing files 
 import Body from "./src/components/body.js";
-import User from "./src/components/user.js";
-import Status from "./src/components/status.js";
-import Priority from "./src/components/priority.js";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 const AppLayout = () => {
@@ -26,18 +23,6 @@ const appRouter = createBrowserRouter([
             {
                 path: "/",
                 element: <Body />
-            },
-            {
-                path: "/user",
-                element: <User />
-            },
-            {
-                path: "/status",
-                element: <Status />
-            },
-            {
-                path: "/priority",
-                element: <Priority />
             },
         ],
     },

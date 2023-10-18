@@ -1,12 +1,24 @@
-import React, { useEffect, useState } from "react";
-import { DMenu, OrderByMenu } from "../utils/Menu";
-import { Quick_API, groupByStatus } from "../utils/helper";
+import { useEffect, useState } from "react";
+import { Quick_API } from "../utils/config";
+import Status from "./status";
+import User from "./user"
+import Priority from "./priority";
 // import Info from "./random";
-
+import { sortByName, sortByPriority } from "../utils/config";
 const Body = () => {
+    console.log("local storage");
+    console.log(localStorage.getItem('filterValue'));
     const [isDisplay, setIsDisplay] = useState(false);
     const [isOrder, setIsOrder] = useState(false);
+    // const [state, setState] = useState(localStorage.getItem('filterValue'));
+    const [state, setState] = useState(() => {
+        const storedValue = localStorage.getItem('filterValue');
+        return storedValue ? parseInt(storedValue, 10) : 0;
+    });
+    const [filter, setFilter] = useState(0);
     const [data, setData] = useState(null);
+    const [filteredData, setFilteredData] = useState(null);
+
     // API call
 
     useEffect(() => {
@@ -16,41 +28,72 @@ const Body = () => {
         const rawData = await fetch(Quick_API);
         const json = await rawData.json();
         setData(json);
-        // console.log(data);
+        setFilteredData(json);
     }
-    const [toDo, setToDo] = useState();
-    const [backlog, setBacklog] = useState();
-    if (data != null) {
-        const [tempToDo, tempBacklog] = groupByStatus(data);
-        setToDo(tempToDo);
-        setBacklog(tempBacklog);
-    }
+    useEffect(() => {
+        // console.log("filter");
+        // console.log(filter);
+        if (filter === 1) {
+            const arr = JSON.parse(JSON.stringify(data));
+            sortByPriority(arr);
+            setFilteredData(arr);
+        }
+        else if (filter === 2) {
+            const arr = JSON.parse(JSON.stringify(data));
+            sortByName(arr);
+            setFilteredData(arr);
+        }
+    }, [filter]);
+
+    // Save filter value to localStorage whenever it changes
+    useEffect(() => {
+        localStorage.setItem('filterValue', state);
+    }, [state]);
+
     return (
         <>
-            {/* Toggling Switch for Display */}
 
-            {(isDisplay === false) ? (<button onClick={() => { setIsDisplay(true); }}>display</button>) : (
-                <button onClick={() => { setIsDisplay(false); }}>display</button>
-            )}
+            <div style={{
+                display: "flex", background: "white", marginTop: "0", width: "1525px",
+                boxShadow: "0 0 0 2px rgba(0, 0, 0, 0.1)", marginBottom: "10px", borderRadius: "5px", padding: "10px",
+            }}>
 
-            {/* Toggling Switch for OrderBy */}
+                {/* Toggling Switch for Display */}
 
-            {((isOrder === false)) ? (<button onClick={() => { setIsOrder(true); }}>OrderBy</button>) : (
-                <button onClick={() => { setIsOrder(false); }}>OrderBy</button>
-            )}
+                {(isDisplay === false) ? (<button onClick={() => { setIsDisplay(true); }}>Group By</button>) : (
+                    <button onClick={() => { setIsDisplay(false); }}>Group By</button>
+                )}
 
-            {/* Show Display Menu */}
+                {/* Toggling Switch for OrderBy */}
 
-            {(isDisplay === true) ? (<DMenu></DMenu>) : (null)}
+                {((isOrder === false)) ? (<button onClick={() => { setIsOrder(true); }}>Order By</button>) : (
+                    <button onClick={() => { setIsOrder(false); }}>OrderBy</button>
+                )}
 
-            {/* show OrderBy Menu */}
+                {/* Show Display Menu */}
 
-            {(isOrder === true) ? (<OrderByMenu />) : (null)}
+                {(isDisplay === true) ?
+                    (
+                        <>
+                            <button onClick={() => { setState(0); }}>By Status</button>
+                            <button onClick={() => { setState(1); }}>By User</button>
+                            <button onClick={() => { setState(2); }}>By Priority</button>
+                        </>
+                    ) :
+                    (null)}
 
-            {/* <br></br> */}
-            {/* used just to print random things */}
-            {/* <Info></Info> */}
+                {/* show OrderBy Menu */}
 
+                {(isOrder === true) ? (
+                    <>
+                        <button onClick={() => { setFilter(1); }}>Priority</button>
+                        <button onClick={() => { setFilter(2); }}>Title</button>
+                    </>
+                ) : (null)}
+            </div>
+            {(state === 0 && filteredData !== null) ? (<Status {...filteredData} />) : (null)}
+            {(state === 1) && (filteredData != null) ? (< User {...filteredData} />) : (null)}
+            {(state === 2) && (filteredData !== null) ? (<Priority {...filteredData} />) : (null)}
         </>
     );
 };
