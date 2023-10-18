@@ -2,10 +2,12 @@
 
 It is a Kanban Board Application.
 
-Features:-
+# Features:-
 
-Group By: Status, Priority, Users.
+**Group By**: Status, Priority, Users.
 
-Order By: Priority (Sorting all the cards in descending order depending on their prirorities), Title (Sorting all the cards in ascending order depending on their title).
+**Order By**: Priority (Sorting all the cards in descending order depending on their prirorities), Title (Sorting all the cards in ascending order depending on their title).
 
-Tech stack: HTML, CSS, ReacJS
+**Tech stack**: HTML, CSS, ReacJS
+
+The application saves the user's view state even after page reload.
