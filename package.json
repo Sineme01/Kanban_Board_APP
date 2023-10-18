@@ -2,7 +2,6 @@
   "name": "kanban_board_app",
   "version": "1.0.0",
   "description": "It is a Kanban board react app",
-  "main": "App.js",
   "scripts": {
     "start": "parcel index.htm",
     "build": "parcel build index.htm",
@@ -18,5 +17,8 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.16.0"
-  }
+  },
+  "browserslist": [
+    "last 2 versions"
+  ]
 }
