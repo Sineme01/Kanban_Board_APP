@@ -26,9 +26,9 @@ var priorityIconMap = {
     1: low,
 };
 const user = ({ tickets, users }) => {
-    console.log("user");
-    console.log(tickets);
-    console.log(users);
+    // console.log("user");
+    // console.log(tickets);
+    // console.log(users);
     const len = users.length;
     var userWork = Array(len);
     for (let index = 0; index < users.length; index++) {

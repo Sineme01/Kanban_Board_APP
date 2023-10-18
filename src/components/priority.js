@@ -24,9 +24,9 @@ var priorityIconMap = {
     "Low": low,
 };
 const Priority = ({ tickets, users }) => {
-    console.log("in priority");
-    console.log(tickets);
-    console.log(users);
+    // console.log("in priority");
+    // console.log(tickets);
+    // console.log(users);
     var priorityWork = Array(5);
     for (let index = 4; index >= 0; index--) {
         const tempPriority = tickets.filter((ele) => (ele?.priority === index));

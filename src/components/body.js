@@ -1,3 +1,7 @@
+
+
+
+
 import { useEffect, useState } from "react";
 import { Quick_API } from "../utils/config";
 import Status from "./status";
@@ -6,11 +10,10 @@ import Priority from "./priority";
 // import Info from "./random";
 import { sortByName, sortByPriority } from "../utils/config";
 const Body = () => {
-    console.log("local storage");
-    console.log(localStorage.getItem('filterValue'));
+
     const [isDisplay, setIsDisplay] = useState(false);
     const [isOrder, setIsOrder] = useState(false);
-    // const [state, setState] = useState(localStorage.getItem('filterValue'));
+    const [toggleDisplay, setToggleDisplay] = useState(false);
     const [state, setState] = useState(() => {
         const storedValue = localStorage.getItem('filterValue');
         return storedValue ? parseInt(storedValue, 10) : 0;
@@ -31,8 +34,6 @@ const Body = () => {
         setFilteredData(json);
     }
     useEffect(() => {
-        // console.log("filter");
-        // console.log(filter);
         if (filter === 1) {
             const arr = JSON.parse(JSON.stringify(data));
             sortByPriority(arr);
@@ -57,39 +58,47 @@ const Body = () => {
                 display: "flex", background: "white", marginTop: "0", width: "1525px",
                 boxShadow: "0 0 0 2px rgba(0, 0, 0, 0.1)", marginBottom: "10px", borderRadius: "5px", padding: "10px",
             }}>
+                {(toggleDisplay === true) ? (<button onClick={() => { setToggleDisplay(false); }}>Display</button>)
+                    : (<button onClick={() => { setToggleDisplay(true); }}>Display</button>)}
 
-                {/* Toggling Switch for Display */}
+                {(toggleDisplay) ? (
+                    <>
+                        <div style={{}}>
+                            {(isDisplay === false) ? (
+                                <button onClick={() => { setIsDisplay(true); }}>Group By</button>) : (
+                                <button onClick={() => { setIsDisplay(false); }}>Group By</button>
+                            )}
 
-                {(isDisplay === false) ? (<button onClick={() => { setIsDisplay(true); }}>Group By</button>) : (
-                    <button onClick={() => { setIsDisplay(false); }}>Group By</button>
-                )}
+                            {/* Toggling Switch for OrderBy */}
 
-                {/* Toggling Switch for OrderBy */}
+                            {((isOrder === false)) ? (<button onClick={() => { setIsOrder(true); }}>Order By</button>) : (
+                                <button onClick={() => { setIsOrder(false); }}>OrderBy</button>
+                            )}
+                        </div>
+                        {(isDisplay === true) ?
+                            (
+                                <>
+                                    <button onClick={() => { setState(0); }}>By Status</button>
+                                    <button onClick={() => { setState(1); }}>By User</button>
+                                    <button onClick={() => { setState(2); }}>By Priority</button>
+                                </>
+                            ) :
+                            (null)}
 
-                {((isOrder === false)) ? (<button onClick={() => { setIsOrder(true); }}>Order By</button>) : (
-                    <button onClick={() => { setIsOrder(false); }}>OrderBy</button>
-                )}
+                        {/* show OrderBy Menu */}
+
+                        {(isOrder === true) ? (
+                            <>
+                                <button onClick={() => { setFilter(1); }}>Priority</button>
+                                <button onClick={() => { setFilter(2); }}>Title</button>
+                            </>
+                        ) : (null)}
+                    </>) : (null)}
+
 
                 {/* Show Display Menu */}
 
-                {(isDisplay === true) ?
-                    (
-                        <>
-                            <button onClick={() => { setState(0); }}>By Status</button>
-                            <button onClick={() => { setState(1); }}>By User</button>
-                            <button onClick={() => { setState(2); }}>By Priority</button>
-                        </>
-                    ) :
-                    (null)}
 
-                {/* show OrderBy Menu */}
-
-                {(isOrder === true) ? (
-                    <>
-                        <button onClick={() => { setFilter(1); }}>Priority</button>
-                        <button onClick={() => { setFilter(2); }}>Title</button>
-                    </>
-                ) : (null)}
             </div>
             {(state === 0 && filteredData !== null) ? (<Status {...filteredData} />) : (null)}
             {(state === 1) && (filteredData != null) ? (< User {...filteredData} />) : (null)}
