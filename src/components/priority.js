@@ -9,6 +9,7 @@ import high from "../assets/high.png";
 import high from "../assets/high.png";
 import medium from "../assets/medium.png";
 import low from "../assets/low.png";
+
 var statusIconMap = {
     "Backlog": Backlog,
     "Todo": Todo,
@@ -16,6 +17,7 @@ var statusIconMap = {
     "Done": Done,
     "Canceled": Canceled,
 };
+
 var priorityIconMap = {
     "No Priority": No,
     "Urgent": Urgent,
@@ -24,10 +26,9 @@ var priorityIconMap = {
     "Low": low,
 };
 const Priority = ({ tickets, users }) => {
-    // console.log("in priority");
-    // console.log(tickets);
-    // console.log(users);
+    
     var priorityWork = Array(5);
+
     for (let index = 4; index >= 0; index--) {
         const tempPriority = tickets.filter((ele) => (ele?.priority === index));
         console.log(tempPriority);
@@ -46,15 +47,17 @@ const Priority = ({ tickets, users }) => {
         }
         priorityWork[4 - index] = [tempPriority, pname];
     }
+
     function swap(arr, i, j) {
         var temp = arr[i];
         arr[i] = arr[j];
         arr[j] = temp;
     }
+
     for (let index = 1; index <= 4; index++) {
         swap(priorityWork, 0, index);
     }
-    // console.log(priorityWork);
+    
     return (
         <div style={{ display: "flex", flexWrap: "wrap" }}>
             {priorityWork.map((ele) => {
@@ -71,9 +74,9 @@ const Priority = ({ tickets, users }) => {
                             }}>{ele[1]}</h3>
                         </div>
                         {
-                            // card code
                             ele[0].map((item) => {
                                 return (
+                                    // card code
                                     <div style={{
                                         background: "white", boxShadow: "0 0 0 2px rgba(0, 0, 0, 0.1)", marginBottom: "10px", borderRadius: "5px",
                                         padding: "5px"

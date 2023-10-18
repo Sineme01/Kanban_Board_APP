@@ -3,10 +3,12 @@ import { Quick_API } from "../utils/config";
 import Status from "./status";
 import User from "./user"
 import Priority from "./priority";
-// import Info from "./random";
 import { sortByName, sortByPriority } from "../utils/config";
+
+
 const Body = () => {
 
+    // State Varialbes
     const [isDisplay, setIsDisplay] = useState(false);
     const [isOrder, setIsOrder] = useState(false);
     const [toggleDisplay, setToggleDisplay] = useState(false);
@@ -18,17 +20,21 @@ const Body = () => {
     const [data, setData] = useState(null);
     const [filteredData, setFilteredData] = useState(null);
 
-    // API call
 
+    // API call
     useEffect(() => {
         getData();
-    }, [])
+    }, []);
+
+    //funtion to get data from API
     async function getData() {
         const rawData = await fetch(Quick_API);
         const json = await rawData.json();
         setData(json);
         setFilteredData(json);
     }
+
+    //Each time filter gets update we set filteredData a new value.
     useEffect(() => {
         if (filter === 1) {
             const arr = JSON.parse(JSON.stringify(data));
@@ -42,7 +48,7 @@ const Body = () => {
         }
     }, [filter]);
 
-    // Save filter value to localStorage whenever it changes
+    // Save filter value to localStorage whenever it changes so that we could save the state.
     useEffect(() => {
         localStorage.setItem('filterValue', state);
     }, [state]);
@@ -60,6 +66,8 @@ const Body = () => {
                 {(toggleDisplay) ? (
                     <>
                         <div style={{}}>
+                            {/* Toggling Switch for GroupBy */}
+
                             {(isDisplay === false) ? (
                                 <button onClick={() => { setIsDisplay(true); }}>Group By</button>) : (
                                 <button onClick={() => { setIsDisplay(false); }}>Group By</button>
@@ -90,15 +98,12 @@ const Body = () => {
                             </>
                         ) : (null)}
                     </>) : (null)}
-
-
-                {/* Show Display Menu */}
-
-
             </div>
+            {/* Config Driven UI */}
             {(state === 0 && filteredData !== null) ? (<Status {...filteredData} />) : (null)}
             {(state === 1) && (filteredData != null) ? (< User {...filteredData} />) : (null)}
             {(state === 2) && (filteredData !== null) ? (<Priority {...filteredData} />) : (null)}
+
         </>
     );
 };
