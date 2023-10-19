@@ -69,10 +69,8 @@ const status = ({ tickets, users }) => {
                                         <p style={{ color: "grey", fontSize: "15px", margin: "0" }}>{item?.id}</p>
                                         <p style={{ fontFamily: "sans-serif", background: "#757575", padding: "5px", borderRadius: "5px", color: "white", margin: "0" }}>{users[item?.userId[4] - '1']?.name}</p>
                                     </div>
-                                    <div style={{ display: "flex", margin: "0" }}>
-                                        <img src={statusIconMap[item?.status]} style={{ flex: "1", width: "5px", height: "20px", marginTop: "0", marginBottom: "0px", marginLeft: "0px", marginRight: "0px", justifyContent: "flex-end" }}></img>
-                                        {/* <p>✅</p> */}
-                                        <p style={{ flex: "8", marginBottom: "10px", marginTop: "0" }}>{item?.title}</p>
+                                    <div style={{ margin: "0" }}>
+                                        <p style={{ marginBottom: "10px", marginTop: "4px" }}>{item?.title}</p>
                                     </div>
                                     <div style={{ display: 'flex' }}>
                                         <img src={priorityIconMap[item?.priority]} style={{ width: "20px", height: "20px", marginRight: "20px" }}></img>
