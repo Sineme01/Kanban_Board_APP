@@ -14,13 +14,16 @@ The application saves the user's view state even after page reload.
 
 **State**: Status
 
-![image](https://github.com/Sineme01/Kanban_Board_APP/assets/89066810/6803e20b-b11b-4c58-b29d-1e962730e0da)
+![image](https://github.com/Sineme01/Kanban_Board_APP/assets/89066810/82586fa2-3dda-4fab-afa3-ad79dbb4ed39)
+
 
 **State**: Users
 
-![image](https://github.com/Sineme01/Kanban_Board_APP/assets/89066810/7ea2d0f2-6da8-4798-ba42-ce5f8345d306)
+![image](https://github.com/Sineme01/Kanban_Board_APP/assets/89066810/b37513e8-259a-47f5-89fb-b96af64de75a)
+
 
 **State**: Priority
 
-![image](https://github.com/Sineme01/Kanban_Board_APP/assets/89066810/1cf58c8d-ac18-47f2-be50-5111843be3b1)
+![image](https://github.com/Sineme01/Kanban_Board_APP/assets/89066810/741cef49-0bd5-4632-b059-9f3af4c387a0)
+
 
