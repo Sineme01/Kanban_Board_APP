@@ -82,6 +82,7 @@ const Body = () => {
                         {(isDisplay === true) ?
                             (
                                 <>
+                                    <br></br>
                                     <button onClick={() => { setState(0); }}>By Status</button>
                                     <button onClick={() => { setState(1); }}>By User</button>
                                     <button onClick={() => { setState(2); }}>By Priority</button>
